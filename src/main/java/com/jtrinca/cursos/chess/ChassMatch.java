@@ -1,6 +1,7 @@
 package com.jtrinca.cursos.chess;
 
 import com.jtrinca.cursos.boardgame.Board;
+import com.jtrinca.cursos.boardgame.Piece;
 import com.jtrinca.cursos.boardgame.Position;
 import com.jtrinca.cursos.chess.pieces.King;
 import com.jtrinca.cursos.chess.pieces.Rook;
@@ -23,6 +24,25 @@ public class ChassMatch {
         return mat;
     }
 
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        return makeMove(source, target);
+    }
+
+    public ChessPiece makeMove(Position source, Position target) {
+        ChessPiece p = (ChessPiece) board.removePiece(source);
+        ChessPiece capturedPiece = (ChessPiece) board.removePiece(target);
+        board.placePiece(p, target);
+        return capturedPiece;
+    }
+
+    private void validateSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
+            throw new ChessException("There is no piece on source position");
+        }
+    }
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }

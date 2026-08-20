@@ -1,6 +1,8 @@
 package com.jtrinca.cursos.chess;
 
-public class ChessException extends RuntimeException {
+import com.jtrinca.cursos.boardgame.BoardException;
+
+public class ChessException extends BoardException {
     public ChessException(String message) {
         super(message);
     }
