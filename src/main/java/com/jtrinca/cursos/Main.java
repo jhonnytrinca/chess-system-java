@@ -1,9 +1,11 @@
 package com.jtrinca.cursos;
 
 import com.jtrinca.cursos.chess.ChassMatch;
+import com.jtrinca.cursos.chess.ChessException;
 import com.jtrinca.cursos.chess.ChessPiece;
 import com.jtrinca.cursos.chess.ChessPosition;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -15,6 +17,7 @@ public class Main {
 
         while(true) {
             try {
+                UI.clearScreen();
                 UI.printBoard(chassMatch.getPieces());
                 System.out.println();
                 System.out.println("Source: ");
@@ -25,8 +28,9 @@ public class Main {
                 ChessPosition target = UI.readChessPosition(sc);
 
                 ChessPiece capturedPiece = chassMatch.performChessMove(source, target);
-            } catch (Exception e) {
+            } catch (ChessException | InputMismatchException e) {
                 System.out.println(e.getMessage());
+                sc.nextLine();
             }
         }
     }
