@@ -1,15 +1,14 @@
 package com.jtrinca.cursos.chess;
 
 import com.jtrinca.cursos.boardgame.Board;
-import com.jtrinca.cursos.boardgame.Piece;
 import com.jtrinca.cursos.boardgame.Position;
 import com.jtrinca.cursos.chess.pieces.King;
 import com.jtrinca.cursos.chess.pieces.Rook;
 
-public class ChassMatch {
+public class ChessMatch {
     private Board board;
 
-    public ChassMatch() {
+    public ChessMatch() {
         board = new Board(8,8);
         initialSetup();
     }
@@ -22,6 +21,12 @@ public class ChassMatch {
             }
         }
         return mat;
+    }
+
+    public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+        Position position = sourcePosition.toPosition();
+        validateSourcePosition(position);
+        return board.piece(position).possibleMoves();
     }
 
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
