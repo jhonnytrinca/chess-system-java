@@ -1,5 +1,6 @@
 package com.jtrinca.cursos;
 
+import com.jtrinca.cursos.chess.ChessMatch;
 import com.jtrinca.cursos.chess.ChessPiece;
 import com.jtrinca.cursos.chess.ChessPosition;
 import com.jtrinca.cursos.chess.Color;
@@ -82,5 +83,12 @@ public class UI {
             }
         }
         System.out.print(" ");
+    }
+
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
     }
 }
