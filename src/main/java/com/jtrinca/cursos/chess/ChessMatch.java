@@ -5,16 +5,21 @@ import com.jtrinca.cursos.boardgame.Position;
 import com.jtrinca.cursos.chess.pieces.King;
 import com.jtrinca.cursos.chess.pieces.Rook;
 
+import java.util.List;
+
 public class ChessMatch {
     private Board board;
     private int turn;
     private Color currentPlayer;
+    private final List<ChessPiece> piecesOnTheBoard = new java.util.ArrayList<>();
+    private final List<ChessPiece> capturedPieces = new java.util.ArrayList<>();
 
     public ChessMatch() {
         board = new Board(8,8);
         turn = 1;
         currentPlayer = Color.WHITE;
         initialSetup();
+
     }
 
     public int getTurn() {
@@ -54,6 +59,11 @@ public class ChessMatch {
         ChessPiece p = (ChessPiece) board.removePiece(source);
         ChessPiece capturedPiece = (ChessPiece) board.removePiece(target);
         board.placePiece(p, target);
+
+        if(capturedPiece != null) {
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
         return capturedPiece;
     }
 
@@ -79,6 +89,7 @@ public class ChessMatch {
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     private void initialSetup() {
